@@ -47,25 +47,6 @@ bool CSVFileReader::extractData(const std::string f_name, std::vector<std::vecto
   return true;
 }
 
-void CSVFileReader::populate_pkey_map(std::map<std::string,int>& param_to_col_num_map,std::vector<std::string> h_row)
-{
-  for (std::map<std::string,int>::iterator it_map = param_to_col_num_map.begin(); it_map!=param_to_col_num_map.end(); ++it_map)
-  {
-    bool header_found = false;
-    for (std::vector<std::string>::iterator it_vs = h_row.begin(); it_vs!=h_row.end(); ++it_vs)
-    {
-      //ROS_INFO("AT FIELD %s ",it_vs->c_str());
-      if (it_vs->compare(it_map->first) == 0)
-        {     
-          it_map->second = it_vs - h_row.begin(); // index of header 
-           header_found = true; 
-           //ROS_INFO("THE HEADER FIELD %s FOUND AT %d ",it_map->first.c_str(),it_map->second);
-        }
-    }
-      if (!header_found)
-              ROS_ERROR("CSVFileReader::THE HEADER FIELD %s was not found",it_map->first.c_str());
-  }
-}
 
 CSVFileReader::CSVFileReader(std::map<std::string,int>& pkey_map)
 {

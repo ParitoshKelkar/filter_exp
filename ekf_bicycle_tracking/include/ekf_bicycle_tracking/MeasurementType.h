@@ -18,7 +18,7 @@ class MeasurementType
     virtual MeasurementType(int,int,int);
     virtual ~MeasurementType();
   
-    virtual Eigen::VectorXd& getMeasurementVector() = 0;
+    virtual Eigen::VectorXd getMeasurementVector() = 0;
 
     /**
     * @brief  ** self explanatory **
@@ -26,7 +26,7 @@ class MeasurementType
     * @param  const Eigen::VectorXd& - the state space 
     *         Eigen::VectorXd& - the converted vector 
     *
-    * @return  bool
+    * @return bool
     * 
     * @throws Exception - regarding dimension mismatch TODO
     */
@@ -39,7 +39,7 @@ class MeasurementType
     * @param  Eigen::MatrixXd&
     *         const Eigen::VectorXd& - the state space value 
     *
-    * @return  bool
+    * @return bool
     * 
     * @throws Exception - An exception is thrown if the jacobian is to be 
     *                     calculated for linear mmnt sensor 
@@ -52,12 +52,12 @@ class MeasurementType
     *
     * @param  
     *
-    * @return    Eigen::MatrixXd
+    * @return Eigen::MatrixXd
     * 
     * @throws Exception
     */
     virtual Eigen::MatrixXd getHMatrix() = 0;
-    virtual Eigen::MatrixXd setHMatrix() = 0;
+    virtual Eigen::MatrixXd setHMatrix(const Eigen::MatrixXd) = 0;
 
 
 

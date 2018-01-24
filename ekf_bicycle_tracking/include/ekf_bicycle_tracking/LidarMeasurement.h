@@ -17,21 +17,5 @@ public:
   virtual ~LidarMeasurement();
 
 
-  bool LidarMeasurement::convertMeasurementToStateSpace(const Eigen::VectorXd& X, Eigen::VectorXd& output)
-  {
-    try {
-      output = H_*X;
-      
-    }catch(std::Exception& e) {
-      ROS_INFO("LidarMeasurement - %s",e.what());
-      return false;
-    }
-
-    return true;
-    
-  }
-  
-
 };
-
 #endif /* LIDARMEASUREMENT_H */

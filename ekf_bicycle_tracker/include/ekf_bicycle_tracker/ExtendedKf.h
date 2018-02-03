@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <Eigen/Dense>
+#include <exception>
 
 // custom 
 #include <ekf_bicycle_tracker/MeasurementType.h>
@@ -42,7 +43,7 @@ public:
   * 
   * @throws Exception
   */
-  bool predict(const Eigen::VectorXd&, Eigen::MatrixXd&);
+  bool predict(const Eigen::VectorXd&, Eigen::MatrixXd&,double dt);
 
 
   /**

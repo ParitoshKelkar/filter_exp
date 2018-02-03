@@ -19,6 +19,9 @@
 class Tracker
 {
 private:
+
+  ros::Subscriber sub_csv_data_;
+  ExtendedKf kf_;
   
 
 public:
@@ -37,6 +40,30 @@ public:
   * @throws 
   */
   Tracker(std::string);
+
+
+  /**
+  * @brief  passes the nodehandle to be able to subscribe/publish etc
+  *
+  * @param  ros::NodeHandle
+  *
+  * @return 
+  * 
+  * @throws Exception
+  */
+  Tracker(ros::NodeHandle);
+
+
+  /**
+  * @brief  calls the filter within it 
+  *
+  * @param  const ekf_bicycle_tracker::RowData&
+  *
+  * @return void
+  * 
+  * @throws Exception
+  */
+  void csvDataHandler(const ekf_bicycle_tracker::RowData&);
 
 
 };

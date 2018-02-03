@@ -2,12 +2,12 @@
 
 ExtendedKf::ExtendedKf(const int n, const int u, const int m)
 {
-  A_.resize(n,n);
-  B_.resize(n,u); // TODO - fault checking '0' size initialization 
-  P_.resize(n,n);
+  A_.setIdentity(n,n);
+  B_.setIdentity(n,u); // TODO - fault checking '0' size initialization 
+  P_.setIdentity(n,n);
 
-  Q_.resize(m,m); // the measurement noize cov 
-  R_.resize(n,n); // the process noise 
+  R_.setIdentity(m,m); // the measurement noize cov 
+  Q_.setIdentity(n,n); // the process noise 
 
   state_vec_.resize(n); // TODO - confirm this works 
 }
@@ -27,20 +27,21 @@ void ExtendedKf::setProcessNoise(const Eigen::MatrixXd& Q)
   Q_ = Q;
 }
 
-bool ExtendedKf::predict(const Eigen::VectorXd& u, Eigen::MatrixXd& pred_state)
+bool ExtendedKf::predict(const Eigen::VectorXd& u, Eigen::MatrixXd& pred_state, double dt)
 {
   try
   {
     // the state evolution 
+    A(0,2) = dt; A(1,3) = dt;
     state_vec_ = A_*state_vec_ + B_*u;
 
     // the covariance evolution 
-    P_ = A_*P_*A_.transpose() + R_; // TODO - confirm Transpose()
+    P_ = A_*P_*A_.transpose() + Q_; // TODO - confirm Transpose()
 
     pred_state = state_vec_;
     
   }
-  catch(std::Exception& e)
+  catch(std::exception& e)
   {
     ROS_ERROR("ExtendedKf::%s",e.what());
     return false;

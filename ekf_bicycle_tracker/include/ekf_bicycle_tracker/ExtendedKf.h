@@ -6,9 +6,13 @@
 #include <string>
 #include <Eigen/Dense>
 #include <exception>
+#include <exception>
 
 // custom 
 #include <ekf_bicycle_tracker/MeasurementType.h>
+
+typedef MeasurementType MmntType;
+
 
 class ExtendedKf
 {
@@ -18,7 +22,7 @@ private:
   Eigen::VectorXd state_vec_;
 
 public:
-  ExtendedKf(const int,const int,const int);
+  ExtendedKf();
   virtual ~ExtendedKf();
 
   /**
@@ -43,7 +47,7 @@ public:
   * 
   * @throws Exception
   */
-  bool predict(const Eigen::VectorXd&, Eigen::MatrixXd&,double dt);
+  void predict(const Eigen::VectorXd&, Eigen::VectorXd&,double dt);
 
 
   /**
@@ -57,7 +61,7 @@ public:
   * @throws Exception
   */
   // TODO - the apppropriate namespace 
-  bool update(const MmntType&, Eigen::MatrixXd&);
+  Eigen::VectorXd update(MmntType*);
 
 
 

@@ -11,10 +11,15 @@
 
 #include <ekf_bicycle_tracker/CSVFileReader.h>
 #include <ekf_bicycle_tracker/ExtendedKf.h>
+#include <ekf_bicycle_tracker/RowData.h>
+#include <ekf_bicycle_tracker/LidarMeasurement.h>
+#include <ekf_bicycle_tracker/RadarMeasurement.h>
 
-#include <ros/ros/.h>
+
+#include <ros/ros.h>
 #include <iostream>
 #include <string>
+
 
 class Tracker
 {
@@ -22,6 +27,9 @@ private:
 
   ros::Subscriber sub_csv_data_;
   ExtendedKf kf_;
+  double prev_time_;
+
+  ros::NodeHandle n;
   
 
 public:

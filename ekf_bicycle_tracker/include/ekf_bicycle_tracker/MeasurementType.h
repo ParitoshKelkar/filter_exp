@@ -11,14 +11,18 @@ class MeasurementType
   private:
 
   protected:
+
     Eigen::VectorXd mmnt_vec_;
     Eigen::MatrixXd H_;
 
   public:
-    virtual MeasurementType(int,int,int);
-    virtual ~MeasurementType();
+
+    MeasurementType(){};
+    virtual ~MeasurementType(){};
   
     virtual Eigen::VectorXd getMeasurementVector() = 0;
+    virtual void setMeasurementVector(const Eigen::VectorXd) = 0;
+    
 
     /**
     * @brief  ** self explanatory **
@@ -30,7 +34,7 @@ class MeasurementType
     * 
     * @throws Exception - regarding dimension mismatch TODO
     */
-    virtual bool convertMeasurementToStateSpace(const Eigen::VectorXd&, Eigen::VectorXd&) = 0;
+    virtual Eigen::VectorXd convertMeasurementToStateSpace(const Eigen::VectorXd&) = 0;
 
     /**
     * @brief  the equations of the jacobian matrix will be different from 
@@ -39,27 +43,37 @@ class MeasurementType
     * @param  Eigen::MatrixXd&
     *         const Eigen::VectorXd& - the state space value 
     *
-    * @return bool
+    * @return Eigen::MaltrixXd 
     * 
     * @throws Exception - An exception is thrown if the jacobian is to be 
     *                     calculated for linear mmnt sensor 
     */
-    virtual bool calculateJacobian(Eigen::MatrixXd&,const Eigen::VectorXd&) = 0;
+    virtual Eigen::MatrixXd calculateJacobian(const Eigen::VectorXd&) = 0;
 
 
     /**
     * @brief  either returns the jacobian or returns the standard H matrix 
     *
-    * @param  
+    * @param  const Eigen::VectorXd& - the state vector 
     *
     * @return Eigen::MatrixXd
     * 
     * @throws Exception
     */
-    virtual Eigen::MatrixXd getHMatrix() = 0;
-    virtual Eigen::MatrixXd setHMatrix(const Eigen::MatrixXd) = 0;
+    virtual Eigen::MatrixXd getHMatrix(const Eigen::VectorXd&)= 0;
+    virtual void setHMatrix(const Eigen::MatrixXd) = 0;
 
 
+    /**
+    * @brief  ** self explanatory **
+    *
+    * @param  
+    *
+    * @return virtual Eigen::MatrixXd
+    * 
+    * @throws Exception
+    */
+    virtual Eigen::MatrixXd getMeasurementNoise() = 0;
 
   
 };
